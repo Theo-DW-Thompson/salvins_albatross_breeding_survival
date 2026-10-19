@@ -12,7 +12,7 @@ require(coda)
 require(bayesplot)
 require(posterior)
 require(ggridges)
-
+require(cowplot)
 
 gc()
 rm(list = ls())
@@ -332,7 +332,7 @@ p_dsr <- ggplot(surv_tbl, aes(x = stage, y = dsr)) +
     linewidth = 0.8
   ) +
   labs(
-    title = "Daily Survival Rate (DSR)",
+    title = NULL,
     x = "",
     y = "DSR"
   ) +
@@ -350,7 +350,7 @@ p_detect <- ggplot(surv_tbl, aes(x = stage, y = detect)) +
     linewidth = 0.8
   ) +
   labs(
-    title = "Daily Detection Probability",
+    title = NULL,
     x = "",
     y = "Detection probability"
   ) +
@@ -385,7 +385,7 @@ Cumulative_survival <- ggplot() +
   labs(
     x = NULL,
     y = "Survival Probability",
-    title = "Cumulative Survival of Salvin's Albatross Eggs and Chicks",
+    title = NULL,
     color = ""  
   ) +  
   
@@ -435,11 +435,16 @@ ggsave(filename = "/Users/theothompson/Library/CloudStorage/OneDrive-Personal/1_
 
 #-------------------------------------------------------------------------------
 
-DSR_Detect <- grid.arrange(
+DSR_Detect <- cowplot::plot_grid(
   p_dsr,
   p_detect,
-  ncol = 2
-)
+  ncol = 2,
+  labels = c("(a)", "(b)"),
+  label_size = 14,
+  label_fontface = "plain"
+ )
+
+DSR_Detect
 
 
 ggsave(filename = "/Users/theothompson/Library/CloudStorage/OneDrive-Personal/1_Masters/Journal_Submission/DSR_Detect_6.5x3.jpg", 
